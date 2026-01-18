@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #D53178;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            width: 320px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        .error {
+            color: red;
+            font-size: 13px;
+            margin-top: 3px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        button.enabled {
+            cursor: pointer;
+            opacity: 1;
+        } 
+        .imagina{
+            margin-left: 15px;
+        }  
+        
+        
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <div class="imagina">
+    <img src="./image/readme.jpg" alt="Photos">
+    </div>
+
+    <h2>Registration</h2>
+    <form id="regForm">
+        <label>Name</label>
+        <input type="text" id="name">
+        <div class="error" id="nameError"></div>
+
+        <label>Email</label>
+        <input type="email" id="email">
+        <div class="error" id="emailError"></div>
+
+        <label>Password</label>
+        <input type="password" id="password">
+        <div class="error" id="passwordError"></div>
+
+        <button type="submit" id="submitBtn" disabled>Submit</button>
+    </form>
+</div>
+
+
+<script>
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const submitBtn = document.getElementById("submitBtn");
+
+    function validateForm() {
+        let isValid = true;
+
+        // Name validation
+        if (nameInput.value.trim() === "") {
+            document.getElementById("nameError").textContent = "Name is required";
+            isValid = false;
+        } else {
+            document.getElementById("nameError").textContent = "";
+        }
+
+        // Email validation
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(emailInput.value)) {
+            document.getElementById("emailError").textContent = "Enter a valid email";
+            isValid = false;
+        } else {
+            document.getElementById("emailError").textContent = "";
+        }
+
+        // Password validation
+        if (passwordInput.value.length < 6) {
+            document.getElementById("passwordError").textContent =
+                "Password must be at least 6 characters";
+            isValid = false;
+        } else {
+            document.getElementById("passwordError").textContent = "";
+        }
+
+        // Enable / disable button
+        submitBtn.disabled = !isValid;
+        submitBtn.classList.toggle("enabled", isValid);
+    }
+
+    nameInput.addEventListener("input", validateForm);
+    emailInput.addEventListener("input", validateForm);
+    passwordInput.addEventListener("input", validateForm);
+
+    document.getElementById("regForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        alert("Your Registraion Form submitted successfully😊!");
+    });
+</script>
+
+</body>
+</html>
